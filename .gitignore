@@ -1,0 +1,8 @@
+*.pth
+*.json
+*.ipynb
+*.pyc
+output/*
+weight/*
+__pycache__/*
+sbd/*
