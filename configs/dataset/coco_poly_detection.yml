@@ -1,0 +1,39 @@
+task: detection
+
+evaluator:
+  type: CocoEvaluator
+  iou_types: ['segm', ]
+
+num_classes: 80
+num_points_per_instances: 64
+
+train_dataloader:
+  type: DataLoader
+  dataset:
+    type: PolyDataset
+    img_folder: /home/data1/coco_2017/train2017/
+    ann_file: /home/data1/coco_2017/annotations/instances_train2017.json
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: True
+  num_workers: 4
+  drop_last: True
+  collate_fn:
+    type: BatchImageCollateFunction
+
+
+val_dataloader:
+  type: DataLoader
+  dataset:
+    type: PolyDataset
+    img_folder: /home/data1/coco_2017/val2017/
+    ann_file: /home/data1/coco_2017/annotations/instances_val2017.json
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: False
+  num_workers: 4
+  drop_last: False
+  collate_fn:
+    type: BatchImageCollateFunction

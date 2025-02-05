@@ -1,0 +1,85 @@
+# sbd map 0.692, 0.771, 0.657
+__include__: [
+  '../dataset/sbd_poly_detection.yml',
+  '../runtime.yml',
+  './include/poly_dataloader.yml',
+  './include/optimizer.yml',
+  './include/contourformer_hgnetv2.yml',
+]
+
+evaluator:
+  type: SBDEvaluator
+  iou_types: ['segm', ]
+
+ratio_scale: True
+
+output_dir: ./output/contourformer_hgnetv2_m_sbd
+
+ContourPostProcessor:
+  ann_file: ./sbd/annotations/sbd_trainval_instance.json
+  num_top_queries: 300
+
+HGNetv2:
+  name: 'B3'
+  return_idx: [1, 2, 3]
+  freeze_at: -1
+  freeze_norm: False
+  use_lab: True
+
+ContourTransformer:
+  point_scale: 8
+  feat_channels: [256, 256, 256]
+  feat_strides: [8, 16, 32]
+  hidden_dim: 256
+  num_levels: 3
+
+  num_points: [3, 6, 3] # [4, 4, 4] [3, 6, 3]
+  num_queries: 300
+  num_layers: 6  # 5 6
+  num_denoising: 100
+  #num_points_per_instances: 64
+
+HybridEncoder:
+  in_channels: [512, 1024, 2048]
+  hidden_dim: 256
+  depth_mult: 1
+
+optimizer:
+  type: AdamW
+  params: 
+    - 
+      params: '^(?=.*backbone)(?!.*norm|bn).*$'
+      lr: 0.0000125
+    - 
+      params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
+      weight_decay: 0.
+
+  lr: 0.00025
+  betas: [0.9, 0.999]
+  weight_decay: 0.000125
+
+
+# Increase to search for the optimal ema
+epoches: 200
+train_dataloader: 
+  collate_fn:
+    ema_restart_decay: 0.9999
+    scale_ori_repeat: null
+
+Criterion:
+  weight_dict: {loss_vfl: 1, loss_pts_l1: 1, loss_pts_dir: 0.25, loss_bbox: 5, loss_giou: 2}
+  losses: ['vfl', 'ptsL1', 'ptsDir']
+  alpha: 0.75
+  gamma: 2.0
+
+  matcher:
+    type: ContourHungarianMatcher
+    weight_dict: {cost_class: 2, cost_bbox: 5, cost_giou: 5, cost_pts: 1}
+    alpha: 0.25
+    gamma: 2.0
+
+train_dataloader:
+  total_batch_size: 32 # total batch size equals to 32 (4 * 8)
+val_dataloader:
+  total_batch_size: 4
+
