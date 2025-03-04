@@ -111,7 +111,7 @@ pip install -r requirements.txt
 ## Demo
 
 ```
- python val_draw.py -c configs/contourformer/contourformer_hgnetv2_b3_sbd.yml -r weight/contourformer_hgnetv2_b3_sbd.pth -i your_image.jpg
+ python draw.py -c configs/contourformer/contourformer_hgnetv2_b3_sbd.yml -r weight/contourformer_hgnetv2_b3_sbd.pth -i your_image.jpg
 ```
 
 ## Usage
@@ -174,17 +174,17 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_nod
 ```
 
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/contourformer/contourformer_hgnetv2_b3_kins.yml --seed=0
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_node=8 train.py -c configs/contourformer/contourformer_hgnetv2_b3_kins.yml --seed=0
 ```
 
 <!-- <summary>2. Testing </summary> -->
 2. Testing
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/contourformer/contourformer_hgnetv2_b2_kins.yml --test-only -r model.pth
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_node=8 train.py -c configs/contourformer/contourformer_hgnetv2_b2_kins.yml --test-only -r model.pth
 ```
 
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,34,5,6,7 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/contourformer/contourformer_hgnetv2_b3_kins.yml --test-only -r model.pth
+CUDA_VISIBLE_DEVICES=0,1,2,34,5,6,7 torchrun --master_port=7777 --nproc_per_node=8 train.py -c configs/contourformer/contourformer_hgnetv2_b3_kins.yml --test-only -r model.pth
 ```
 </details>
 
