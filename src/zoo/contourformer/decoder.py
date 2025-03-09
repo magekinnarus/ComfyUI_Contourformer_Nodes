@@ -350,7 +350,7 @@ class TransformerDecoder(nn.Module):
         self.num_points = num_points
         self.layers = nn.ModuleList([copy.deepcopy(decoder_layer) for _ in range(num_layers)])
         self.up, self.reg_scale, self.reg_max = up, reg_scale, reg_max
-        self.lqe_layers = nn.ModuleList([copy.deepcopy(LQE(2 * point_scale, 64, 2, reg_max)) for _ in range(num_layers)])
+        self.lqe_layers = nn.ModuleList([copy.deepcopy(LQE(2 * num_points//point_scale, 64, 2, reg_max)) for _ in range(num_layers)])
     
     def value_op(self, memory, value_proj, value_scale, memory_mask, memory_spatial_shapes):
         """
