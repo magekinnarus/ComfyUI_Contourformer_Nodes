@@ -1,20 +1,18 @@
 # sbd map 0.668 0.750 0.628
 __include__: [
-  '../dataset/kins_poly_detection.yml',
+  '../dataset/coco_poly_detection.yml',
   '../runtime.yml',
   './include/poly_dataloader.yml',
   './include/optimizer.yml',
   './include/contourformer_hgnetv2.yml',
 ]
 
-find_unused_parameters: True
-
 ratio_scale: True
-eval_spatial_size: [768, 2496] # h w
-output_dir: ./output/contourformer_hgnetv2_b2_kins
+eval_spatial_size: [512, 512] # h w
+output_dir: ./output/contourformer_hgnetv2_b2_coco
 
 ContourPostProcessor:
-  ann_file: /home/data1/kins_dataset/testing/instances_val.json
+  ann_file: /home/data1/coco_2017/annotations/instances_val2017.json
   num_top_queries: 300
 
 HGNetv2:
@@ -47,22 +45,22 @@ optimizer:
   params: 
     - 
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
-      lr: 0.00001
+      lr: 0.00002
     - 
       params: '^(?=.*backbone)(?=.*norm|bn).*$'
-      lr: 0.00001
+      lr: 0.00002
       weight_decay: 0.
     - 
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
       weight_decay: 0.
 
-  lr: 0.0001
+  lr: 0.0002
   betas: [0.9, 0.999]
   weight_decay: 0.0001
 
 
 # Increase to search for the optimal ema
-epoches: 100
+epoches: 72
 train_dataloader: 
   collate_fn:
     ema_restart_decay: 0.9999
@@ -81,21 +79,15 @@ Criterion:
     gamma: 2.0
 
 train_dataloader:
-  dataset:
-    transforms:
-      ops:
-        - {type: RandomPhotometricDistort, p: 0.5}
-        - {type: PolyRandomfilp}
-        - {type: KINSPolyAffinev2,output_size: [2496, 768],scale: [0.4, 1.6],mode: 'train'}
-        - {type: ConvertPILImage, dtype: 'float32', scale: True}
-  total_batch_size: 16 
-  #num_workers: 0
+  total_batch_size: 32 # total batch size equals to 32 (4 * 8)
 val_dataloader:
   dataset:
+    img_folder: /home/data1/coco_2017/test2017/
+    ann_file: /home/data1/coco_2017/annotations/image_info_test-dev2017.json
     transforms:
       ops:
-        - {type: KINSPolyAffinev2,output_size: [2496, 768],mode: 'test'}
+        - {type: PolyAffine, output_size: [512,512],mode: 'test'}
         - {type: ConvertPILImage, dtype: 'float32', scale: True}
-  # num_workers: 0
-  total_batch_size: 16
+  total_batch_size: 32
+  #num_workers: 0
 

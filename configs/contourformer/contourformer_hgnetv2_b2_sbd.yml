@@ -16,7 +16,7 @@ ratio_scale: True
 output_dir: ./output/contourformer_hgnetv2_b2_sbd
 
 ContourPostProcessor:
-  ann_file: ./sbd/annotations/sbd_trainval_instance.json
+  ann_file: /home/data1/sbd_dataset/annotations/sbd_trainval_instance.json
   num_top_queries: 300
 
 HGNetv2:

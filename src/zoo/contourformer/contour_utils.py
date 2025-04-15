@@ -173,7 +173,7 @@ def distance2point(points, distance, reg_scale):
     Returns:
         Tensor: Bounding boxes in (N, 4) or (B, N, 4) format [cx, cy, w, h].
     """
-    w = (torch.max(points[...,1]) - torch.min(points[...,1])).clip(min=0)#.detach()
+    w = (torch.max(points[...,0]) - torch.min(points[...,0])).clip(min=0)#.detach()
     h = (torch.max(points[...,1]) - torch.min(points[...,1])).clip(min=0)#.detach()
 
     reg_scale = abs(reg_scale)

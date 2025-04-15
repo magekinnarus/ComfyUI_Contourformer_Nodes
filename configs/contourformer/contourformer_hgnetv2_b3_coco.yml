@@ -13,7 +13,7 @@ ratio_scale: True
 output_dir: ./output/contourformer_hgnetv2_b3_coco
 
 ContourPostProcessor:
-  ann_file: ./data/coco/annotations/instances_val2017.json
+  ann_file: /home/data1/coco_2017/annotations/instances_val2017.json
   num_top_queries: 300
 
 
@@ -58,7 +58,7 @@ optimizer:
 
 
 # Increase to search for the optimal ema
-epoches: 200
+epoches: 72
 train_dataloader: 
   collate_fn:
     ema_restart_decay: 0.9999

@@ -12,7 +12,7 @@ eval_spatial_size: [512, 512] # h w
 output_dir: ./output/contourformer_hgnetv2_b2_coco
 
 ContourPostProcessor:
-  ann_file: ./data/coco/annotations/instances_val2017.json
+  ann_file: /home/data1/coco_2017/annotations/instances_val2017.json
   num_top_queries: 300
 
 HGNetv2:
@@ -60,7 +60,7 @@ optimizer:
 
 
 # Increase to search for the optimal ema
-epoches: 150
+epoches: 72
 train_dataloader: 
   collate_fn:
     ema_restart_decay: 0.9999
@@ -88,4 +88,3 @@ val_dataloader:
         - {type: ConvertPILImage, dtype: 'float32', scale: True}
   total_batch_size: 32
   #num_workers: 0
-

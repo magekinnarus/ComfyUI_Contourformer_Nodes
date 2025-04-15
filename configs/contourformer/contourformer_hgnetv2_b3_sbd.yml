@@ -13,10 +13,10 @@ evaluator:
 
 ratio_scale: True
 
-output_dir: ./output/contourformer_hgnetv2_m_sbd
+output_dir: ./output/contourformer_hgnetv2_b3_sbd
 
 ContourPostProcessor:
-  ann_file: ./sbd/annotations/sbd_trainval_instance.json
+  ann_file: /home/data1/sbd_dataset/annotations/sbd_trainval_instance.json
   num_top_queries: 300
 
 HGNetv2:
@@ -49,12 +49,12 @@ optimizer:
   params: 
     - 
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
-      lr: 0.0000125
+      lr: 0.00000625
     - 
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
       weight_decay: 0.
 
-  lr: 0.00025
+  lr: 0.000125
   betas: [0.9, 0.999]
   weight_decay: 0.000125
 
@@ -79,7 +79,8 @@ Criterion:
     gamma: 2.0
 
 train_dataloader:
-  total_batch_size: 32 # total batch size equals to 32 (4 * 8)
+  total_batch_size: 16 # total batch size equals to 32 (4 * 8)
 val_dataloader:
-  total_batch_size: 4
+  total_batch_size: 16
+
 

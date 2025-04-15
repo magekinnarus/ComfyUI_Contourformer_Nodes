@@ -15,7 +15,7 @@ ratio_scale: True
 output_dir: ./output/contourformer_hgnetv2_b3_kins
 
 ContourPostProcessor:
-  ann_file: ./data/kins_dataset/testing/instances_val.json
+  ann_file: /home/data1/kins_dataset/testing/instances_val.json
   num_top_queries: 300
 
 
@@ -84,7 +84,7 @@ train_dataloader:
       ops:
         - {type: RandomPhotometricDistort, p: 0.5}
         - {type: PolyRandomfilp}
-        - {type: KINSPolyAffine,output_size: [2496, 768],scale: [0.4, 1.6],mode: 'train'}
+        - {type: KINSPolyAffinev2,output_size: [2496, 768],scale: [0.4, 1.6],mode: 'train'}
         - {type: ConvertPILImage, dtype: 'float32', scale: True}
   total_batch_size: 16 
   #num_workers: 0
@@ -92,7 +92,7 @@ val_dataloader:
   dataset:
     transforms:
       ops:
-        - {type: KINSPolyAffine,output_size: [2496, 768],mode: 'test'}
+        - {type: KINSPolyAffinev2,output_size: [2496, 768],mode: 'test'}
         - {type: ConvertPILImage, dtype: 'float32', scale: True}
   # num_workers: 0
   total_batch_size: 16
