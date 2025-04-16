@@ -1,10 +1,11 @@
 """
-D-FINE: Redefine Regression Task of DETRs as Fine-grained Distribution Refinement
-Copyright (c) 2024 The D-FINE Authors. All Rights Reserved.
+ContourFormer:Real-Time Contour-Based End-to-End Instance Segmentation Transformer
+Copyright (c) 2025 The ContourFormer Authors. All Rights Reserved.
 ---------------------------------------------------------------------------------
-Modified from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
-Copyright (c) 2023 lyuwenyu. All Rights Reserved.
+Modified from D-FINE (https://github.com/Peterande/D-FINE)
+Copyright (c) 2024 Peterande. All Rights Reserved.
 """
+
 import torch
 from PIL import ImageFile
 from PIL import Image

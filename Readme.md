@@ -184,7 +184,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_nod
 ```
 
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,34,5,6,7 torchrun --master_port=7777 --nproc_per_node=8 train.py -c configs/contourformer/contourformer_hgnetv2_b3_kins.yml --test-only -r model.pth
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --master_port=7777 --nproc_per_node=8 train.py -c configs/contourformer/contourformer_hgnetv2_b3_kins.yml --test-only -r model.pth
 ```
 </details>
 
