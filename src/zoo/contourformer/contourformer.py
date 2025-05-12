@@ -26,10 +26,14 @@ class ContourFormer(nn.Module):
         self.encoder = encoder
 
     def forward(self, x, targets=None):
+        device = x.device
         x = self.backbone(x)
         x = self.encoder(x)
-        x = self.decoder(x, targets)
-
+        with torch.autocast(device_type=str(device).split(":")[0],enabled=False):
+            new_x = []
+            for x_i in x:
+                new_x.append(x_i.float())
+            x = self.decoder(new_x, targets)
         return x
     
     def deploy(self, ):
