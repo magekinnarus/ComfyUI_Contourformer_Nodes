@@ -3,11 +3,6 @@
 </h2>
 
 
-<h2 align="center">
-  ContourFormer:Real-Time Contour-Based End-to-End Instance Segmentation Transformer
-</h2>
-
-
 <p align="center">
     <a href="https://github.com/talebolano/Contourformer/blob/master/LICENSE">
         <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
@@ -41,5 +36,6 @@ pip install -r ComfyUI_Contourformer_Nodes/requirements.txt
 ```
 ## Weights
 Download the pretrained model from [Google Drive](https://drive.google.com/drive/folders/1w3RYsNJD8v5ax_4ymDYxPBk5hdeUGdpH?usp=drive_link).
+
 Create a folder named ContourFormer under the models directory.
 
